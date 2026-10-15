@@ -1,16 +1,22 @@
 import {connect, set} from "mongoose"
 import {MongoClient, ObjectId} from "mongodb"
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+const URLDB = process.env.URLDB
+
 
 const connectMongoDb = async () => {
     try {
-        await connect("mongodb+srv://matiuescu12_db_user:KtX9BFJnFOsKumtg@proyectos.mqrty9u.mongodb.net/")
+        await connect(URLDB as string)
         console.log("Conectado con exito!!!")
     } catch (error) {
         console.log("Error al conectarse a mongoDB")
     }
 }
 
-const client = new MongoClient("mongodb+srv://matiuescu12_db_user:KtX9BFJnFOsKumtg@proyectos.mqrty9u.mongodb.net/")
+const client = new MongoClient(URLDB as string)
 
 const db = client.db("biblioteca")
 const productos = db.collection("libros")
